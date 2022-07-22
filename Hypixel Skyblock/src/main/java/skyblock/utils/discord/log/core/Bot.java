@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import skyblock.database.SQLite;
 import skyblock.listener.JoinListener;
 
 import javax.security.auth.login.LoginException;
@@ -64,6 +65,8 @@ public class Bot {
                 .setDefaultPermissions(DefaultMemberPermissions.ENABLED)
         );
 
+        SQLite.connect();
+
         try {
             jda = builder.build();
 
@@ -80,6 +83,7 @@ public class Bot {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (jda != null) {
                 jda.shutdown();
+                SQLite.disconnect();
             }
         }));
 
