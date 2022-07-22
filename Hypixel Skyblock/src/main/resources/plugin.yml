@@ -1,0 +1,11 @@
+name: Skyblock
+version: '${project.version}'
+main: skyblock.skyblock.Skyblock
+api-version: 1.19
+authors: [ MaettisDE ]
+description: Hypixel Skyblock nachprogrammieren
+website: matev3.de
+
+
+commands:
+  minion:
