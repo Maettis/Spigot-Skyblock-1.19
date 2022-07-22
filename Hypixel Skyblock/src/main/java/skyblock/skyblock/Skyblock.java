@@ -33,6 +33,7 @@ public final class Skyblock extends JavaPlugin implements Listener {
 
         getCommand("minion").setExecutor(new Minion());
         getCommand("setLobby").setExecutor(new SetLobby());
+        getCommand("link").setExecutor(new Link());
 
         new BukkitRunnable() {
             @Override
