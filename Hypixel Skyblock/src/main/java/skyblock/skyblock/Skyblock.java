@@ -54,44 +54,10 @@ public final class Skyblock extends JavaPlugin implements Listener {
         c_minion_recipe.setIngredient('P', Material.WOODEN_PICKAXE);
 
         Bukkit.addRecipe(c_minion_recipe);
-
-        loadEnchantments();
     }
-
-    public Telekineses tele = new Telekineses(new NamespacedKey("Tele", String.valueOf(101)));
 
     @SuppressWarnings("unchecked")
     public void onDisable() {
         // Plugin shutdown logic
-        try {
-            Field byIdField = Enchantment.class.getDeclaredField("byId");
-            byIdField.setAccessible(true);
-            HashMap<Integer, Enchantment> byId =(HashMap<Integer, Enchantment>) byIdField.get(null);
-
-            if (byId.containsKey(tele.getID())) {
-                byId.remove(tele.getID());
-            }
-        } catch (Exception e) { }
     }
-
-    public void loadEnchantments() {
-        try {
-            try {
-                Field f = Enchantment.class.getDeclaredField("acceptingNew");
-                f.setAccessible(true);
-                f.set(null, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Enchantment.registerEnchantment(tele);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
