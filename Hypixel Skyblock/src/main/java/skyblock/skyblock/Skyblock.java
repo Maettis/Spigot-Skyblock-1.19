@@ -3,7 +3,6 @@ package skyblock.skyblock;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -11,13 +10,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import skyblock.enchantments.Telekineses;
 import skyblock.listener.ChatListener;
 import skyblock.listener.JoinListener;
 import skyblock.utils.Head;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
 public final class Skyblock extends JavaPlugin implements Listener {
 
@@ -54,44 +49,10 @@ public final class Skyblock extends JavaPlugin implements Listener {
         c_minion_recipe.setIngredient('P', Material.WOODEN_PICKAXE);
 
         Bukkit.addRecipe(c_minion_recipe);
-
-        loadEnchantments();
     }
-
-    public Telekineses tele = new Telekineses(new NamespacedKey("Tele", String.valueOf(101)));
 
     @SuppressWarnings("unchecked")
     public void onDisable() {
         // Plugin shutdown logic
-        try {
-            Field byIdField = Enchantment.class.getDeclaredField("byId");
-            byIdField.setAccessible(true);
-            HashMap<Integer, Enchantment> byId =(HashMap<Integer, Enchantment>) byIdField.get(null);
-
-            if (byId.containsKey(tele.getID())) {
-                byId.remove(tele.getID());
-            }
-        } catch (Exception e) { }
     }
-
-    public void loadEnchantments() {
-        try {
-            try {
-                Field f = Enchantment.class.getDeclaredField("acceptingNew");
-                f.setAccessible(true);
-                f.set(null, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Enchantment.registerEnchantment(tele);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
