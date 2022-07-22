@@ -3,6 +3,7 @@ package skyblock.skyblock;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -16,9 +17,13 @@ import skyblock.listener.ChatListener;
 import skyblock.listener.JoinListener;
 import skyblock.utils.Head;
 
+import java.util.HashMap;
+
 public final class Skyblock extends JavaPlugin implements Listener {
 
     private static Skyblock plugin;
+
+    public static HashMap<Integer, Player> hashMap = new HashMap<>();
 
     @Override
     public void onEnable() {

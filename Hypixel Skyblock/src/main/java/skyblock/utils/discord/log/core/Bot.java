@@ -4,11 +4,15 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import skyblock.utils.discord.log.listener.JoinListener;
+import skyblock.listener.JoinListener;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
@@ -51,6 +55,14 @@ public class Bot {
         new JoinListener();
 
         Listener();
+
+        Guild guild = jda.getGuildById(dotenv.get("GUILD_ID"));
+
+        guild.updateCommands().addCommands(
+                Commands.slash("link", "Links your Minecraft account to your Discord account.")
+                        .addOption(OptionType.NUMBER, "authcode", "The authcode you received from the Chat")
+                .setDefaultPermissions(DefaultMemberPermissions.ENABLED)
+        );
 
         try {
             jda = builder.build();
