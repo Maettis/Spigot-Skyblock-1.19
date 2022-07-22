@@ -14,7 +14,7 @@ This will be a custom Minecraft Skyblock plugin, the plugin is inspired based on
  
  ```bash
 sdk install java 17.0.4-amzn
- 
+```
  
  ## Make binary
  
