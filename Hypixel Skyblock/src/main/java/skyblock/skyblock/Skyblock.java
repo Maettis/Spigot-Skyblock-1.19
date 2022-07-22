@@ -3,7 +3,9 @@ package skyblock.skyblock;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,16 +18,21 @@ import skyblock.utils.Head;
 
 public final class Skyblock extends JavaPlugin implements Listener {
 
+    private static Skyblock plugin;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         PluginManager plm = Bukkit.getPluginManager();
+        this.saveDefaultConfig();
+
         plm.registerEvents(new JoinListener(), this);
         plm.registerEvents(new ChatListener(), this);
         plm.registerEvents(new Minion(), this);
         plm.registerEvents(this, this);
 
         getCommand("minion").setExecutor(new Minion());
+        getCommand("setLobby").setExecutor(new SetLobby());
 
         new BukkitRunnable() {
             @Override
@@ -55,4 +62,9 @@ public final class Skyblock extends JavaPlugin implements Listener {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    @EventHandler
+    public void onFoodLevelChange(FoodLevelChangeEvent event) { event.setFoodLevel(20); }
+
+    public static Skyblock getPlugin() { return plugin; }
 }

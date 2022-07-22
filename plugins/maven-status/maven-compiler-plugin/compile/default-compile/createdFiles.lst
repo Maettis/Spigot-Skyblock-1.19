@@ -4,6 +4,7 @@ skyblock/utils/MinionConstructor.class
 skyblock/skyblock/Skyblock.class
 skyblock/listener/JoinListener.class
 skyblock/utils/Inventory.class
+skyblock/skyblock/SetLobby.class
 skyblock/utils/MinionConstructor$1.class
 skyblock/skyblock/Minion.class
 skyblock/skyblock/Skyblock$1.class

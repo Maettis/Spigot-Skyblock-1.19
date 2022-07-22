@@ -9,3 +9,6 @@ website: matev3.de
 
 commands:
   minion:
+    description: Gives you a minion, only for Development purposes
+  setLobby:
+    description: Set the Location of the Lobby!
